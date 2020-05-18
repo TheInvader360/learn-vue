@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <title>Challenge 6</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+
+    <div class="nav-bar"></div>
+
+    <div id="app">
+      <div class="product">
+
+        <div class="product-image">
+          <img :src="image">
+        </div>
+
+        <div class="product-info">
+          <h1>{{ product }}</h1>
+
+          <p v-if="inStock">In Stock</p>
+          <p v-else 
+             :class="{ noStock: !inStock }">No Stock</p>
+
+          <ul>
+            <li v-for="detail in details">{{ detail }}</li>
+          </ul>
+
+          <div v-for="variant in variants"
+               :key="variant.variantId"
+               class="color-box"
+               :style="{ backgroundColor: variant.variantColor }"
+               @mouseover="updateProduct(variant.variantImage)">
+          </div>
+
+          <ul>
+            <li v-for="size in sizes">{{ size }}</li>
+          </ul>
+
+          <button @click="incrementCart"
+                  :disabled="!inStock"
+                  :class="{ disabledButton: !inStock }">Add</button>
+          
+          <button @click="decrementCart"
+                  :disabled="cart <= 0"
+                  :class="{ disabledButton: cart <= 0 }">Remove</button>
+
+          <div class="cart">
+            <p>Cart({{ cart }})</p>
+          </div>
+        </div>
+
+      </div>
+    </div> 
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+    <script src="script.js"></script>
+
+  </body>
+</html>
+
